@@ -1,0 +1,19 @@
+{
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization,Region,Cookie",
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "CF-Cache-Status": "DYNAMIC",
+    "CF-RAY": "5c0bc310eb06a6c3-DUB",
+    "cf-request-id": "047b383e910000a6c30c209200000001",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json;charset=utf-8",
+    "Date": "Mon, 10 Aug 2020 18:25:52 GMT, Mon, 10 Aug 2020 18:25:52 GMT",
+    "Expect-CT": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+    "X-App-Rate-Limit": "20:1,100:120",
+    "X-App-Rate-Limit-Count": "1:1,1:120",
+    "X-Method-Rate-Limit": "500:10",
+    "X-Method-Rate-Limit-Count": "1:10",
+    "X-Riot-Edge-Trace-Id": "ff72a154-5f48-4eb4-be63-61a1f3225746",
+    "transfer-encoding": "chunked",
+    "Connection": "keep-alive"
+}
