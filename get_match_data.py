@@ -3,6 +3,8 @@ Get match and match timeline data, given a matchId
 """
 import json
 import os
+import datetime
+import time
 
 import pandas as pd
 from riotwatcher import LolWatcher, ApiError
@@ -36,7 +38,6 @@ def get_match(region, match_id):
                 f"requests.exceptions.HTTPError: 504 Server Error: Gateway Timeout for url: "
                 f"https://{region}.api.riotgames.com/lol/match/v4/matches/{match_id}"
             )
-            print('Try in {} seconds.'.format(err.response.headers['Retry-After']))
         elif 500 <= err.response.status_code < 600:
             print(
                 f"requests.exceptions.HTTPError: {err.response.status_code} Server Error: Service Unavailable for url:"
@@ -62,7 +63,6 @@ def get_timeline(region, match_id):
                 f"requests.exceptions.HTTPError: 504 Server Error: Gateway Timeout for url: "
                 f"https://{region}.api.riotgames.com/lol/match/v4/matches/{match_id}"
             )
-            print('Try in {} seconds.'.format(err.response.headers['Retry-After']))
         elif 500 <= err.response.status_code < 600:
             print(
                 f"requests.exceptions.HTTPError: {err.response.status_code} Server Error: Service Unavailable for url:"
@@ -73,6 +73,7 @@ def get_timeline(region, match_id):
 
 
 for n, m_id in enumerate(ids.matchId.values):
+    print(datetime.datetime.now().strftime("%H:%M:%S"))
     print("index:", n)
     match_name = 'matches/' + str(m_id) + '.json'
     timeline_name = 'matches/' + str(m_id) + '_timeline.json'
