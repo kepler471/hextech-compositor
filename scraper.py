@@ -9,7 +9,7 @@ import pandas as pd
 class Scraper:
     def __init__(self):
         try:
-            self.API_KEY = open('API-KEY.txt')
+            self.API_KEY = open('API-KEY')
         except FileNotFoundError:
             print("No API KEY found")
         # TODO add exception for expired API key

@@ -9,9 +9,10 @@ Get further fields by summonerId search:
             'summonerLevel'
 """
 
+from pathlib import Path
+
 import pandas as pd
 from riotwatcher import RiotWatcher, ApiError
-from pathlib import Path
 
 df = pd.read_pickle('data/summoner_info.pkl')
 # print(df.columns.values)
@@ -20,7 +21,7 @@ df = pd.read_pickle('data/summoner_info.pkl')
 # print(df['tier'].value_counts())
 # print(df[df['summonerName'] == 'Araxios'].values)
 
-API_KEY = open('API-KEY.txt')
+API_KEY = open('API-KEY')
 watcher = RiotWatcher(API_KEY)
 region = 'euw1'
 # araxios = watcher.summoner.by_id(region,'42Rrp5DutjGtxrz2yNFaYFnFzD1koHIRKLQXrzrD8Q6mef4')
