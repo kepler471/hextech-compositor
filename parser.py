@@ -5,6 +5,9 @@ ID values to reference jsons for true data
 
 Example:
     '../matchIdSamples/match_4728783388.json'
+
+The original json will be stored in raw form,
+in a separate table.
 """
 
 import json
@@ -48,3 +51,26 @@ class Match:
                 self.winning_team = team['teamId']
             for ban in team['bans']:
                 self.bans[ban] = team['teamId']
+
+
+if __name__ == '__main__':
+    game = load_json("matches/4887737431.json")
+    data = {
+        'gameId': game['gameId'],
+        'platformId': game['platformId'],
+        'gameCreation': game['gameCreation'],
+        'gameDuration': game['gameDuration'],
+        'queueId': game['queueId'],
+        'mapId': game['mapId'],
+        'seasonId': game['seasonId'],
+        'gameVersion': game['gameVersion'],
+        'gameMode': game['gameMode'],
+        'gameType': game['gameType'],
+    }
+    for p in game['participants']:
+        data['participantId'] = p['participantId']
+        data['teamId'] = p['teamId']
+        data['championId'] = p['championId']
+        data['role'] = p['role']
+        data['lane'] = p['lane']
+        data['win'] = p['stats']['win']
