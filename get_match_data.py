@@ -1,10 +1,9 @@
 """
 Get match and match timeline data, given a matchId
 """
+import datetime
 import json
 import os
-import datetime
-import time
 
 import pandas as pd
 from riotwatcher import LolWatcher, ApiError
@@ -16,10 +15,6 @@ API_KEY = open('API-KEY').read()
 watcher = LolWatcher(API_KEY)
 
 ids = pd.read_json('matchIdSamples/27_10_20/matchlistSamples.json')
-
-
-# game = watcher.match.by_id(ids.region[0], ids.matchId[0])
-# timeline = watcher.match.timeline_by_match(ids.region[0], ids.matchId[0])
 
 
 def get_match(region, match_id):
@@ -73,25 +68,26 @@ def get_timeline(region, match_id):
 
 
 for n, m_id in enumerate(ids.matchId.values):
+    # TODO: Split by region?
     print(datetime.datetime.now().strftime("%H:%M:%S"))
     print("index:", n)
-    match_name = 'matches/' + str(m_id) + '.json'
-    timeline_name = 'matches/' + str(m_id) + '_timeline.json'
+    match_name = 'matches/' + str(ids.matchId[n]) + '.json'
+    timeline_name = 'matches/' + str(ids.matchId[n]) + '_timeline.json'
 
     if not os.path.isfile(match_name):
-        print("Getting match data for:", m_id)
-        match = get_match(ids.region[n], m_id)
+        print("Getting match data for:", ids.matchId[n])
+        match = get_match(ids.region[n], ids.matchId[n])
         with open(match_name, 'w') as fp_match:
             json.dump(match, fp_match, indent=4)
         fp_match.close()
     else:
-        print("Match data already exists for:", m_id)
+        print("Match data already exists for:", ids.matchId[n])
 
     if not os.path.isfile(timeline_name):
-        print("Getting timeline data for:", m_id)
-        timeline = get_timeline(ids.region[n], m_id)
+        print("Getting timeline data for:", ids.matchId[n])
+        timeline = get_timeline(ids.region[n], ids.matchId[n])
         with open(timeline_name, 'w') as fp_timeline:
             json.dump(timeline, fp_timeline, indent=4)
         fp_timeline.close()
     else:
-        print("Timeline data already exists for:", m_id)
+        print("Timeline data already exists for:", ids.matchId[n])
