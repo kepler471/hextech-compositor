@@ -12,6 +12,9 @@ in a separate table.
 
 import json
 
+import pandas as pd
+from sqlalchemy import create_engine
+
 
 def load_json(file):
     """Given json file, returns dict j"""
@@ -54,6 +57,10 @@ class Match:
 
 
 if __name__ == '__main__':
+
+    engine = create_engine('sqlite')
+    rows = []
+
     game = load_json("matches/4887737431.json")
     data = {
         'gameId': game['gameId'],
@@ -74,3 +81,6 @@ if __name__ == '__main__':
         data['role'] = p['role']
         data['lane'] = p['lane']
         data['win'] = p['stats']['win']
+        rows.append(data)
+
+    df = pd.DataFrame(rows)
