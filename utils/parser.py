@@ -18,33 +18,29 @@ def load_json(file):
     return j
 
 
-def champion_id(name):
-    """Returns champion id given name"""
-    for cid in champion_map:
-        if champion_map[cid] == name:
-            return cid
+# TODO Check https://developer.riotgames.com/docs/lol#data-dragon_champions for
+#  latest reference file
 
 
-def champion_name(cid):
-    """Returns champion name given id"""
-    return champion_map[cid]
+def get_champion_map(path):
+    """Invert the mapping in the champion.json reference document"""
+    champion_ref = load_json(path)
+    champions = list(champion_ref["data"].keys())
+    return {champion_ref["data"][champ]["key"]: champ for champ in champions}
 
 
-champion_map = load_json('../ref/champions.json')
+# TODO add champion classes and map champions
 
 
 class Match:
     def __init__(self, match_file):
-        """Extract key information from match data
-        """
+        """Extract key information from match data"""
         self.data = load_json(match_file)
-        self.champs = {
-            p['championId']: p['teamId'] for p in self.data['participants']
-        }
+        self.champs = {p["championId"]: p["teamId"] for p in self.data["participants"]}
 
-        self.bans = {}
-        for team in self.data['teams']:
-            if team['win'] == 'Win':
-                self.winning_team = team['teamId']
-            for ban in team['bans']:
-                self.bans[ban] = team['teamId']
+        # self.bans = {}
+        for team in self.data["teams"]:
+            if team["win"] == "Win":
+                self.winning_team = team["teamId"]
+            # for ban in team["bans"]:
+            #     self.bans[ban] = team["teamId"]
