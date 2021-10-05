@@ -18,12 +18,13 @@ with fields:
             'miniSeries'
  """
 
-from riotwatcher import RiotWatcher, ApiError
-import pandas as pd
-from time import sleep
 from pathlib import Path
+from time import sleep
 
-API_KEY = open('API-KEY.txt')
+import pandas as pd
+from riotwatcher import RiotWatcher, ApiError
+
+API_KEY = open('API-KEY')
 watcher = RiotWatcher(API_KEY)
 
 my_region = 'euw1'
@@ -51,10 +52,10 @@ for tier in tiers:
 
         while True:
             sleep(0.5)
-            
+
             try:
-                league = watcher.league.entries('EUW1', 'RANKED_SOLO_5x5', 
-                                            tier, division, page_num)
+                league = watcher.league.entries('EUW1', 'RANKED_SOLO_5x5',
+                                                tier, division, page_num)
             except ApiError as err:
                 if err.response.status_code == 429:
                     # The 429 status code indicates that the user has sent too many requests
@@ -73,10 +74,10 @@ for tier in tiers:
                 summoner_info = summoner_info.append(league, ignore_index=True)
                 page_num += 1
 
-        print(f'Current dataframe shape is {summoner_info.shape}')  
+        print(f'Current dataframe shape is {summoner_info.shape}')
 
 directory = Path.cwd()
 summoner_info.to_pickle(directory / 'summoner_info.pkl')
 summoner_info.to_csv(directory / 'summoner_info.csv')
-print(f'Final dataframe shape is {summoner_info.shape}')  
+print(f'Final dataframe shape is {summoner_info.shape}')
 print(summoner_info['summonerName'].tail())

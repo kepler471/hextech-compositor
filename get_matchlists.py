@@ -8,7 +8,7 @@ from pathlib import Path
 
 df = pd.read_pickle('data/summoners.pkl')
 
-API_KEY = open('API-KEY.txt')
+API_KEY = open('API-KEY')
 watcher = RiotWatcher(API_KEY)
 region = 'euw1'
 
